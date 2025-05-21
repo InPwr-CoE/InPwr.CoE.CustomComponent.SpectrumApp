@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Chrome Viewpoint Spectrum",
+  "Type": "Screen",
+  "Id": "v5N9C2LRsU-4j0YaXk6CUA",
+  "Reference": "muQbkXCU5EOlVkQ3ts98bA/v5N9C2LRsU-4j0YaXk6CUA",
+  "ParentRef": "muQbkXCU5EOlVkQ3ts98bA/ku_GxnFlRUqv2IcArF_Gpg",
+  "Created": "2025-05-21T10:53:34.5844107Z",
+  "Updated": "2025-05-21T10:53:34.5844107Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=24.10.6.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=24.12.3.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

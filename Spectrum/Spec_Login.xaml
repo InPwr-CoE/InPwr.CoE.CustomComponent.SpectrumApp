@@ -1,0 +1,795 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Spectrum_Launch" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:i="clr-namespace:InPwr_CoE_CustomComponent_Mail;assembly=InPwr.CoE.CustomComponent.Mail" xmlns:im="clr-namespace:InPwr_CoE_CustomComponent_Mail.Mail;assembly=InPwr.CoE.CustomComponent.Mail" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:umm="clr-namespace:UiPath.MicrosoftOffice365.Models;assembly=UiPath.MicrosoftOffice365" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="The Browser output of the spectrum application" Name="out_spectrumBrowser" Type="OutArgument(ui:UiElement)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="Account Name " Name="O365MailAccount" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="Application Id registered in o365 with necessary outlook permisiions" Name="O365ApplicationId" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="Application Secret Value for o365 application with necessary outlook permissions" Name="O365ApplicationSecret" Type="InArgument(ss:SecureString)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="Tenant registered in office 365 with necessary outlook permisiions" Name="O365Tenant" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="The oData Filter Query in case of Advanced Filtering" Name="SearchQuery" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="The top number of emails to be read" Name="EmailCount" Type="InArgument(x:Int32)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="The Email Folder Name to read emails from" Name="EmailFolder" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="Retry Interval" Name="RetryInterval" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="The url needed to login to spectrum application" Name="SpectrumURL" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="The user mail id required to login to spectrum" Name="SpectrumLoginMail" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="The password required to login to spectrum" Name="SpectrumLoginPwd" Type="InArgument(ss:SecureString)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="True - if need to change the enviroment  to 200.&#xA;False - if need to stay in the TS2 enivronment" Name="ChangeTo200" Type="InArgument(x:Boolean)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+  </x:Members>
+  <this:Spectrum_Launch.SpectrumURL>
+    <InArgument x:TypeArguments="x:String" />
+  </this:Spectrum_Launch.SpectrumURL>
+  <this:Spectrum_Launch.SpectrumLoginMail>
+    <InArgument x:TypeArguments="x:String" />
+  </this:Spectrum_Launch.SpectrumLoginMail>
+  <this:Spectrum_Launch.SpectrumLoginPwd>
+    <InArgument x:TypeArguments="ss:SecureString" />
+  </this:Spectrum_Launch.SpectrumLoginPwd>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap2010:Annotation.AnnotationText>UPTF000000C0eyI8SGVscExpbms+a19fQmFja2luZ0ZpZWxkIjpudWxsLCI8SW5pdGlhbFRvb2x0aXA+a19fQmFja2luZ0ZpZWxkIjoiTG9naW4gQ29tcG9uZW50IGZvciBTcGVjdHJ1bSBXZWIgQXBwbGljYXRpb24iLCI8VmVyc2lvbj5rX19CYWNraW5nRmllbGQiOjF9</sap2010:Annotation.AnnotationText>
+  <sap:VirtualizedContainerService.HintSize>1408.8,4892</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Spectrum_Launch_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Services.RuntimeAnalyze</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Models</x:String>
+      <x:String>UiPath.Shared.Services.Graph.Mail.Contracts</x:String>
+      <x:String>UiPath.Shared.Services.Graph.Mail.Models</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Models</x:String>
+      <x:String>UiPath.Shared.Services.Graph.Mail.Models</x:String>
+      <x:String>UiPath.MicrosoftOffice365</x:String>
+      <x:String>System.Numerics</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>InPwr_CoE_CustomComponent_Mail</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Files.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Enums</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail</x:String>
+      <x:String>InPwr_CoE_CustomComponent_Mail.Mail</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>InPwr.CoE.CustomComponent.Mail</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Linq.Async.Queryable</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Login Component for Spectrum Web Application" DisplayName="Spectrum_Login" sap:VirtualizedContainerService.HintSize="1836.0000000000002,12354.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="str_MFACode" />
+      <Variable x:TypeArguments="umm:Office365Message[]" sap2010:Annotation.AnnotationText="" Name="EmailsRead" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message - &quot;Spectrum Login:  Started&quot;" sap:VirtualizedContainerService.HintSize="1555.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Spectrum Login:  Started&quot;]" />
+    <Sequence sap2010:Annotation.AnnotationText="Check if any input property isempty" DisplayName="Input Vaidation Stage" sap:VirtualizedContainerService.HintSize="1555.2,1578.4" sap2010:WorkflowViewState.IdRef="Sequence_35">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage DisplayName="Log Message - &quot;Input Validation: Started&quot;" sap:VirtualizedContainerService.HintSize="449.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_50" Level="Info" Message="[&quot;Input Validation: Started&quot;]" />
+      <If Condition="[String.IsNullOrEmpty(EmailFolder) Or _&#xA;String.IsNullOrEmpty(O365MailAccount) Or _&#xA;String.IsNullOrEmpty(O365ApplicationId) Or _&#xA;String.IsNullOrEmpty(O365Tenant) Or _&#xA;String.IsNullOrEmpty(EmailCount.ToString) Or _ &#xA;String.IsNullOrEmpty(SpectrumURL) Or _ &#xA;String.IsNullOrEmpty(SpectrumLoginMail) Or _ &#xA;String.IsNullOrEmpty(ChangeTo200.ToString) Or _ &#xA;String.IsNullOrEmpty(RetryInterval.ToString)]" DisplayName="If Any input is empty" sap:VirtualizedContainerService.HintSize="449.6,1115.2" sap2010:WorkflowViewState.IdRef="If_4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <Sequence DisplayName="Then - Add to List to Log them" sap:VirtualizedContainerService.HintSize="416,719.2" sap2010:WorkflowViewState.IdRef="Sequence_34">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="scg:List(x:String)" Name="list_missingFields" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message - &quot;Input Validation: Failed. Checking for missing input value&quot;" sap:VirtualizedContainerService.HintSize="382.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_51" Level="Error" Message="[&quot;Input Validation: Failed. Checking for missing input value&quot;]" />
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="If String.IsNullOrEmpty(EmailFolder) Then&#xD;&#xA;    list_missingFields.Add(&quot;EmailFolder&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(O365MailAccount) Then&#xD;&#xA;    list_missingFields.Add(&quot;O365MailAccount&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(O365ApplicationId) Then&#xD;&#xA;    list_missingFields.Add(&quot;O365ApplicationId&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(O365Tenant) Then&#xD;&#xA;    list_missingFields.Add(&quot;O365Tenant&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(EmailCount.ToString) Then&#xD;&#xA;    EmailCount = 1&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrWhiteSpace(SpectrumURL) OrElse Not Regex.IsMatch(SpectrumURL, &quot;(http|https):[^\s]*&quot;) Then&#xD;&#xA;    list_missingFields.Add(&quot;SpectrumURL&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(SpectrumLoginMail) Then&#xD;&#xA;    list_missingFields.Add(&quot;SpectrumLoginMail&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(ChangeTo200.ToString) Then&#xD;&#xA;    list_missingFields.Add(&quot;ChangeTo200&quot;)&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;If String.IsNullOrEmpty(RetryInterval.ToString) Then&#xD;&#xA;    list_missingFields.Add(&quot;RetryInterval&quot;)&#xD;&#xA;End If" DisplayName="Invoke Code - Add Empty Values to List" sap:VirtualizedContainerService.HintSize="382.4,196.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+              <ui:InvokeCode.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="EmailFolder">[EmailFolder]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="O365MailAccount">[O365MailAccount]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="O365ApplicationId">[O365ApplicationId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="O365Tenant">[O365Tenant]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="SpectrumURL">[SpectrumURL]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="SpectrumLoginMail">[SpectrumLoginMail]</InArgument>
+                <InArgument x:TypeArguments="x:Boolean" x:Key="ChangeTo200">[ChangeTo200]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="RetryInterval">[RetryInterval]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="EmailCount">[EmailCount]</InArgument>
+                <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="list_missingFields">[list_missingFields]</OutArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
+            <ui:LogMessage DisplayName="Log Message - &quot;Mandatory input values passed as empty values : &quot; &amp; String.Join(&quot;, &quot;, list_missingFields)" sap:VirtualizedContainerService.HintSize="382.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_52" Level="Error" Message="[&quot;Mandatory input values passed as empty values : &quot; &amp; String.Join(&quot;, &quot;, list_missingFields)]" />
+            <Throw DisplayName="Throw missing parameters" Exception="[New InvalidDataException(&quot;Mandatory input values passed as empty values : &quot; &amp; String.Join(&quot;, &quot;, list_missingFields))]" sap:VirtualizedContainerService.HintSize="382.4,113.6" sap2010:WorkflowViewState.IdRef="Throw_7" />
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,225.6" sap2010:WorkflowViewState.IdRef="Sequence_36">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message - &quot;Input Validation: Completed. No Input value is empty&quot;" sap:VirtualizedContainerService.HintSize="382.4,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_53" Level="Info" Message="[&quot;Input Validation: Completed. No Input value is empty&quot;]" />
+          </Sequence>
+        </If.Else>
+      </If>
+      <ui:LogMessage DisplayName="Log Message - &quot;Input Validation: Ended&quot;" sap:VirtualizedContainerService.HintSize="449.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_54" Level="Info" Message="[&quot;Input Validation: Ended&quot;]" />
+    </Sequence>
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Chrome Viewpoint Spectrum" sap:VirtualizedContainerService.HintSize="1555.2,10381.6" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" OutUiElement="[out_spectrumBrowser]" ScopeGuid="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V2" WindowResize="Maximize">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1521.6,10132.8" sap2010:WorkflowViewState.IdRef="Sequence_15">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message - &quot;Sign In Component: Started&quot;" sap:VirtualizedContainerService.HintSize="1488,176" sap2010:WorkflowViewState.IdRef="LogMessage_25" Level="Info" Message="[&quot;Sign In Component: Started&quot;]" />
+            <uix:NCheckState DisplayName="Check App State 'Sign In'" sap:VirtualizedContainerService.HintSize="1488,603.2" sap2010:WorkflowViewState.IdRef="NCheckState_5" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="449.6,230.4" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;Sign in Page available - entering the email id and password&quot;" sap:VirtualizedContainerService.HintSize="416,168.8" sap2010:WorkflowViewState.IdRef="LogMessage_26" Level="Info" Message="[&quot;Sign in Page available - entering the email id and password&quot;]" />
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="449.6,352.8" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;Not the correct login page&quot;" sap:VirtualizedContainerService.HintSize="416,176" sap2010:WorkflowViewState.IdRef="LogMessage_27" Level="Error" Message="[&quot;Not the correct login page&quot;]" />
+                  <Throw DisplayName="Throw - New SystemException(&quot;Not the correct login page&quot;)" Exception="[New SystemException(&quot;Not the correct login page&quot;)]" sap:VirtualizedContainerService.HintSize="416,115.2" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="id.trimble.com/ui/sign_in.html" CVScreenId="b076898c-ce38-4726-ac16-31e2b4cd15c5" DesignTimeRectangle="1379, 282, 500, 36" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Sign In' parentid='enter_username' visibleinnertext='Sign In' /&gt;" Guid="3dc34237-82c8-41e6-98d9-d5b7af450656" InformativeScreenshot="7bbcf3750b145c492ae29ff5815d7799.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NCheckState.Target>
+            </uix:NCheckState>
+            <uix:NCheckState DisplayName="Check App State 'Sign Out'" EnableIfNotExists="False" sap:VirtualizedContainerService.HintSize="1488,603.2" sap2010:WorkflowViewState.IdRef="NCheckState_11" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="449.6,352.8" sap2010:WorkflowViewState.IdRef="Sequence_47">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;An active session found!&quot;" sap:VirtualizedContainerService.HintSize="416,176" sap2010:WorkflowViewState.IdRef="LogMessage_49" Level="Info" Message="[&quot;An active session found!&quot;]" />
+                  <Throw DisplayName="Throw - New SystemException(&quot;An active session found!&quot;)" Exception="[New SystemException(&quot;An active session found!&quot;)]" sap:VirtualizedContainerService.HintSize="416,115.2" sap2010:WorkflowViewState.IdRef="Throw_16" />
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="449.6,106.4" sap2010:WorkflowViewState.IdRef="Sequence_48">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="inpwr.dexterchaney.com/pages/index.jsp" DesignTimeRectangle="1835, 181, 69, 18" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl tag='SPAN' innertext='Sign Out' visibleinnertext='Sign Out' /&gt;" Guid="63f1bd12-da93-4b03-8e9c-3d2a7f6e56d6" ImageBase64="" InformativeScreenshot="6e42a88bbfb33e1b6c39d46773d3fcb5.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Viewpoint Spectrum' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NCheckState.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NCheckState>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT username-field'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="1488,286.4" sap2010:WorkflowViewState.IdRef="NTypeInto_4" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Text="[SpectrumLoginMail]" Version="V3">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="https://cloud.uipath.com/inpwr/Dev/orchestrator_/buckets/73382/browse?tid=46591&amp;fid=969233" DesignTimeRectangle="1379, 461, 500, 40" DesignTimeScaleFactor="1.25" ElementType="InputBox" FullSelectorArgument="&lt;webctrl tag='INPUT' name='username' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='INPUT' name='username' type='' class='form-control' aaname='' /&gt;" Guid="ce3dccf8-b863-461f-9878-61df263b3862" ImageBase64="" InformativeScreenshot="9d7764e947b67da0a4410d9519d46489.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Visible" WaitForReadyArgument="Complete" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears">
+                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <InArgument x:TypeArguments="x:Boolean" />
+                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <ui:LogMessage DisplayName="Log Message - &quot;User Email ID Typed: &quot; + &quot;User Email ID Typed: &quot; + SpectrumLoginMail" sap:VirtualizedContainerService.HintSize="1488,176" sap2010:WorkflowViewState.IdRef="LogMessage_29" Level="Info" Message="[&quot;User Email ID Typed: &quot; + SpectrumLoginMail]" />
+            <uix:NClick ActivateBefore="True" ClickType="Single" CursorMotionType="Smooth" DisplayName="Click 'Next'" sap:VirtualizedContainerService.HintSize="1488,225.6" sap2010:WorkflowViewState.IdRef="NClick_11" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V3">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="https://cloud.uipath.com/inpwr/Dev/orchestrator_/buckets/73382/browse?tid=46591&amp;fid=969233" DesignTimeRectangle="1797, 522, 82, 40" DesignTimeScaleFactor="1.25" ElementType="Button" FullSelectorArgument="&lt;webctrl aaname=' Next' tag='BUTTON' type='submit' /&gt;" Guid="2ce59447-d947-47cd-ae81-c03b8fddb86d" ImageBase64="" InformativeScreenshot="20312a9d3d529e5417b877f97fe45bfa.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Visible" WaitForReadyArgument="Complete" />
+              </uix:NClick.Target>
+              <uix:NClick.VerifyOptions>
+                <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                  <uix:VerifyExecutionOptions.Retry>
+                    <InArgument x:TypeArguments="x:Boolean" />
+                  </uix:VerifyExecutionOptions.Retry>
+                  <uix:VerifyExecutionOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionOptions.Timeout>
+                </uix:VerifyExecutionOptions>
+              </uix:NClick.VerifyOptions>
+            </uix:NClick>
+            <uix:NCheckState DisplayName="Check App State 'User does not exist. Ch…'" EnableIfNotExists="False" sap:VirtualizedContainerService.HintSize="1488,603.2" sap2010:WorkflowViewState.IdRef="NCheckState_8" Version="V4">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="449.6,352.8" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;User Email ID is incorrect!&quot;" sap:VirtualizedContainerService.HintSize="416,176" sap2010:WorkflowViewState.IdRef="LogMessage_44" Level="Error" Message="[&quot;User Email ID is incorrect!&quot;]" />
+                  <Throw DisplayName="Throw - new SystemException(&quot;User Email ID is incorrect!&quot;)" Exception="[new SystemException(&quot;User Email ID is incorrect!&quot;)]" sap:VirtualizedContainerService.HintSize="416,115.2" sap2010:WorkflowViewState.IdRef="Throw_8" />
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="449.6,91.2" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="cloud.uipath.com/inpwr/Dev/orchestrator_/buckets" DesignTimeRectangle="1488, 409, 400, 18" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl class='error_username_not_exists_text' tag='DIV' aaname='User does not exist. Check your email or username and try again.' innertext='User does not exist. Check your email or username and try again.' /&gt;" Guid="d85f7097-7507-4ef3-ab30-403eb45de2ec" ImageBase64="" InformativeScreenshot="ab050d49b35fba437c69d5e5ccc8fefb.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Visible" />
+              </uix:NCheckState.Target>
+            </uix:NCheckState>
+            <ui:LogMessage DisplayName="Log Message - &quot;User Email ID is correct!&quot;" sap:VirtualizedContainerService.HintSize="1488,176" sap2010:WorkflowViewState.IdRef="LogMessage_60" Level="Info" Message="[&quot;User Email ID is correct!&quot;]" />
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="1488,286.4" sap2010:WorkflowViewState.IdRef="NTypeInto_5" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" SecureText="[SpectrumLoginPwd]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" DesignTimeRectangle="1379, 418, 500, 40" DesignTimeScaleFactor="1.25" ElementType="InputBoxPassword" FullSelectorArgument="&lt;webctrl tag='INPUT' type='password' /&gt;" Guid="ee12afef-2412-4280-8e27-5d8f44b358eb" ImageBase64="" InformativeScreenshot="456d3c68d6b2ee3d654438e071d5f189.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears">
+                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <InArgument x:TypeArguments="x:Boolean" />
+                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <ui:LogMessage DisplayName="Log Message - &quot;Password Typed&quot;" sap:VirtualizedContainerService.HintSize="1488,176" sap2010:WorkflowViewState.IdRef="LogMessage_30" Level="Info" Message="[&quot;Password Typed&quot;]" />
+            <uix:NClick ActivateBefore="True" ClickType="Single" CursorMotionType="Smooth" DisplayName="Click 'Next'" sap:VirtualizedContainerService.HintSize="1488,225.6" sap2010:WorkflowViewState.IdRef="NClick_13" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V3">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" DesignTimeRectangle="1781, 525, 98, 40" DesignTimeScaleFactor="1.25" ElementType="Button" FullSelectorArgument="&lt;webctrl name='password-submit' tag='BUTTON' type='submit' aaname=' Sign in' visibleinnertext='Sign in' /&gt;" Guid="200cc434-3743-4d6e-8d48-3584c24f0c95" ImageBase64="" InformativeScreenshot="09400c3cae75a07be6327f4da49a8395.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" WaitForReadyArgument="Complete" />
+              </uix:NClick.Target>
+              <uix:NClick.VerifyOptions>
+                <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                  <uix:VerifyExecutionOptions.Retry>
+                    <InArgument x:TypeArguments="x:Boolean" />
+                  </uix:VerifyExecutionOptions.Retry>
+                  <uix:VerifyExecutionOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionOptions.Timeout>
+                </uix:VerifyExecutionOptions>
+              </uix:NClick.VerifyOptions>
+            </uix:NClick>
+            <uix:NCheckState DisplayName="Check App State 'A verification code has…'" sap:VirtualizedContainerService.HintSize="1488,1097.6" sap2010:WorkflowViewState.IdRef="NCheckState_9" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="449.6,230.4" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;Entered the correct password!&quot;" sap:VirtualizedContainerService.HintSize="416,168.8" sap2010:WorkflowViewState.IdRef="LogMessage_46" Level="Info" Message="[&quot;Entered the correct password!&quot;]" />
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="985.6,847.2" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NCheckState DisplayName="Check App State 'You have reached the ma…'" sap:VirtualizedContainerService.HintSize="952,785.6" sap2010:WorkflowViewState.IdRef="NCheckState_14" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+                    <uix:NCheckState.IfExists>
+                      <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="449.6,542.4" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:String" Name="str_MaxAttempts_Login" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <uix:NGetText DisplayName="Get Text 'You have reached the ma…'" sap:VirtualizedContainerService.HintSize="416,189.6" sap2010:WorkflowViewState.IdRef="NGetText_1" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" TextString="[str_MaxAttempts_Login]" Version="V4">
+                          <uix:NGetText.Target>
+                            <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" ContentHash="m7JSR0UE4kW0nEXEmaPgvA" DesignTimeRectangle="1379, 338, 500, 73" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl id='error_max_limit_reached' parentid='enter_password' tag='DIV' aaname='You have reached the maximum number of attempts. Please try again later.' innertext='You have reached the maximum number of attempts. Please try again later.' /&gt;" Guid="7a5dfb0f-c4ad-4303-a17f-aaa4d363b1d0" ImageBase64="" InformativeScreenshot="838c976a450615c0b7a44e90c4b2d305.png" Reference="muQbkXCU5EOlVkQ3ts98bA/Yu511Q9Dn0uRZK-GEHXHRg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+                          </uix:NGetText.Target>
+                        </uix:NGetText>
+                        <ui:LogMessage DisplayName="Log Message - str_MaxAttempts_Login" sap:VirtualizedContainerService.HintSize="416,176" sap2010:WorkflowViewState.IdRef="LogMessage_62" Level="Error" Message="[str_MaxAttempts_Login]" />
+                        <Throw DisplayName="Throw - new SystemException(str_MaxAttempts_Login)" Exception="[new SystemException(str_MaxAttempts_Login)]" sap:VirtualizedContainerService.HintSize="416,115.2" sap2010:WorkflowViewState.IdRef="Throw_13" />
+                      </Sequence>
+                    </uix:NCheckState.IfExists>
+                    <uix:NCheckState.IfNotExists>
+                      <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="449.6,352.8" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message - &quot;Entered the Incorrect password!&quot;" sap:VirtualizedContainerService.HintSize="416,176" sap2010:WorkflowViewState.IdRef="LogMessage_65" Level="Error" Message="[&quot;Entered the Incorrect password!&quot;]" />
+                        <Throw DisplayName="Throw - new SystemException(&quot;Entered the Incorrect password!&quot;)" Exception="[new SystemException(&quot;Entered the Incorrect password!&quot;)]" sap:VirtualizedContainerService.HintSize="416,115.2" sap2010:WorkflowViewState.IdRef="Throw_15" />
+                      </Sequence>
+                    </uix:NCheckState.IfNotExists>
+                    <uix:NCheckState.Target>
+                      <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" DesignTimeRectangle="1379, 338, 500, 73" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl id='error_max_limit_reached' parentid='enter_password' aaname='You have reached the maximum number of attempts. Please try again later.' tag='DIV' innertext='You have reached the maximum number of attempts. Please try again later.' /&gt;" Guid="9f965b43-a3cf-4aa7-9ae1-aa41bf2e7c84" ImageBase64="" InformativeScreenshot="838c976a450615c0b7a44e90c4b2d305.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Visible" />
+                    </uix:NCheckState.Target>
+                  </uix:NCheckState>
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" DesignTimeRectangle="1379, 339, 290, 24" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl parentid='enter_multifactor' innertext='A verification code has been sent to*' /&gt;&lt;webctrl parentid='phone_text' aaname='A verification code has been sent to*' tag='SPAN' innertext='A verification code has been sent to*' /&gt;" Guid="bb9fa655-b242-46b5-b3ba-9642e5f41a4f" ImageBase64="" InformativeScreenshot="350480e78ddf19db6db6b75fa93cf54d.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Visible" />
+              </uix:NCheckState.Target>
+            </uix:NCheckState>
+            <Sequence DisplayName="Sequence - Get MFA Code from Mail" sap:VirtualizedContainerService.HintSize="1488,2455.2" sap2010:WorkflowViewState.IdRef="Sequence_14">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch DisplayName="Try Catch - Connecting Mailbox - Get MFA Code from Mail" sap:VirtualizedContainerService.HintSize="595.2,1696" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <TryCatch.Try>
+                  <Sequence DisplayName="Try - Connecting Mailbox" sap:VirtualizedContainerService.HintSize="558.4,1409.6" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:RetryScope DisplayName="Retry Scope - Connecting Mailbox" sap:VirtualizedContainerService.HintSize="524.8,1348" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="10" RetryInterval="[New TimeSpan(0,0,Convert.ToInt32(RetryInterval))]">
+                      <ui:RetryScope.ActivityBody>
+                        <ActivityAction>
+                          <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="483.2,1147.2" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <i:Get_Emails_From_Folder DisplayName="Get Emails From Folder - MFA Mail" EmailCount="[EmailCount]" Emailolder="[EmailFolder]" EmailsRead="[EmailsRead]" sap:VirtualizedContainerService.HintSize="449.6,486.4" sap2010:WorkflowViewState.IdRef="Get_Emails_From_Folder_3" O365ApplicationId="[O365ApplicationId]" O365ApplicationSecret="[O365ApplicationSecret]" O365MailAccount="[O365MailAccount]" O365Tenant="[O365Tenant]" SearchQuery="[SearchQuery]">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </i:Get_Emails_From_Folder>
+                            <If Condition="[EmailsRead.Count.Equals(0)]" DisplayName="If - out_list_MailMessage.Count.Equals(0)" sap:VirtualizedContainerService.HintSize="449.6,600.8" sap2010:WorkflowViewState.IdRef="If_3">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <If.Then>
+                                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,349.6" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message - &quot;No New mails. retrying in [&quot;+RetryInterval.ToString +&quot;] seconds&quot;" sap:VirtualizedContainerService.HintSize="382.4,176" sap2010:WorkflowViewState.IdRef="LogMessage_40" Level="Error" Message="[&quot;No New mails. retrying in [&quot;+RetryInterval.ToString +&quot;] seconds&quot;]" />
+                                  <Throw DisplayName="Throw - New BusinessRuleException(&quot;No New mails. retrying in [&quot;+RetryInterval.ToString +&quot;] seconds&quot;)" Exception="[New BusinessRuleException(&quot;No New mails. retrying in [&quot;+RetryInterval.ToString +&quot;] seconds&quot;)]" sap:VirtualizedContainerService.HintSize="382.4,113.6" sap2010:WorkflowViewState.IdRef="Throw_6" />
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,89.6" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:RetryScope.ActivityBody>
+                      <ui:RetryScope.Condition>
+                        <ActivityFunc x:TypeArguments="x:Boolean" />
+                      </ui:RetryScope.Condition>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:RetryScope>
+                  </Sequence>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="561.6,23.2" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="s:Exception">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="Sequence - Connecting Mailbox" sap:VirtualizedContainerService.HintSize="416,352.8" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message - &quot;Get Mail: Unable to Connect and read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+exception.Message" sap:VirtualizedContainerService.HintSize="382.4,176" sap2010:WorkflowViewState.IdRef="LogMessage_38" Level="Error" Message="[&quot;Get Mail: Unable to Connect and read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+exception.Message]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:LogMessage>
+                        <Throw DisplayName="Throw - New SystemException(&quot;Get Mail: Unable to Connect and read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+exception.Message)" Exception="[New SystemException(&quot;Get Mail: Unable to Connect and read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+exception.Message)]" sap:VirtualizedContainerService.HintSize="382.4,115.2" sap2010:WorkflowViewState.IdRef="Throw_5" />
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                  <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="561.6,23.2" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="bException" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="Sequence - Reading Email" sap:VirtualizedContainerService.HintSize="416,352.8" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message - &quot;Get Mail: No new emails to read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+bException.Message" sap:VirtualizedContainerService.HintSize="382.4,176" sap2010:WorkflowViewState.IdRef="LogMessage_39" Level="Error" Message="[&quot;Get Mail: No new emails to read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+bException.Message]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:LogMessage>
+                        <Throw DisplayName="Throw - New BusinessRuleException(&quot;Get Mail: No new emails to read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+bException.Message)" Exception="[New BusinessRuleException(&quot;Get Mail: No new emails to read mails from Mailbox [&quot; + EmailFolder + &quot;]. Exception message | &quot;+bException.Message)]" sap:VirtualizedContainerService.HintSize="382.4,115.2" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <Assign DisplayName="Assign - Config(&quot;MFACode&quot;)" sap:VirtualizedContainerService.HintSize="595.2,114.4" sap2010:WorkflowViewState.IdRef="Assign_2">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[str_MFACode]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Match(EmailsRead(0).Body, "(?&lt;=(verification code you requested is:)\s*)\d{6}(?=\s*(This code will expire in))").Value]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:LogMessage DisplayName="Log Message - &quot;Extracted MFA code: &quot; + str_MFACode" sap:VirtualizedContainerService.HintSize="595.2,176" sap2010:WorkflowViewState.IdRef="LogMessage_31" Level="Warn" Message="[&quot;Extracted MFA code: &quot; + str_MFACode]" />
+              <im:Delete_Mail DeleteFromFolder="[EmailFolder]" DisplayName="Delete Mail - MFA Mail" sap:VirtualizedContainerService.HintSize="595.2,375.2" sap2010:WorkflowViewState.IdRef="Delete_Mail_3" O365ApplicationId="[O365ApplicationId]" O365ApplicationSecret="[O365ApplicationSecret]" O365MailAccount="[O365MailAccount]" O365Message="[EmailsRead(0)]" O365Tenant="[O365Tenant]" />
+            </Sequence>
+            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT' - MFA" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="1488,286.4" sap2010:WorkflowViewState.IdRef="NTypeInto_6" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Text="[str_MFACode]" Version="V4">
+              <uix:NTypeInto.Target>
+                <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" CVScreenId="f4e2666b-a888-43ee-9cac-5cf858181ff2" DesignTimeRectangle="1379, 445, 500, 40" DesignTimeScaleFactor="1.25" ElementType="InputBox" FullSelectorArgument="&lt;webctrl tag='DIV' visibleinnertext='Verification Code' /&gt;&lt;webctrl name='code' tag='INPUT' parentid='enter_multifactor' /&gt;" Guid="f238ecd2-1319-432d-bc24-9c74e78ce104" InformativeScreenshot="f9c46ca88d1b314244d380510622d2d1.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NTypeInto.Target>
+              <uix:NTypeInto.VerifyOptions>
+                <uix:VerifyExecutionTypeIntoOptions DisplayName="{x:Null}" Mode="Appears">
+                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                    <InArgument x:TypeArguments="x:Boolean" />
+                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                </uix:VerifyExecutionTypeIntoOptions>
+              </uix:NTypeInto.VerifyOptions>
+            </uix:NTypeInto>
+            <ui:LogMessage DisplayName="Log Message - str_MFACode + &quot; - MFA code typed in&quot;" sap:VirtualizedContainerService.HintSize="1488,176" sap2010:WorkflowViewState.IdRef="LogMessage_32" Level="Warn" Message="[str_MFACode + &quot; - MFA code typed in&quot;]" />
+            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Submit'" sap:VirtualizedContainerService.HintSize="1488,225.6" sap2010:WorkflowViewState.IdRef="NClick_14" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+              <uix:NClick.Target>
+                <uix:TargetAnchorable BrowserURL="us.id.trimble.com/ui/sign_in.html" DesignTimeRectangle="1777, 607, 102, 40" DesignTimeScaleFactor="1.25" ElementType="Button" FullSelectorArgument="&lt;webctrl parentid='enter_multifactor' tag='BUTTON' type='submit' innertext=' Submit' /&gt;" Guid="1746fc59-0dfa-4b4c-8983-f07f0146a772" ImageBase64="" InformativeScreenshot="910045639dea33475409ca55272ac873.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NClick.Target>
+              <uix:NClick.VerifyOptions>
+                <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                  <uix:VerifyExecutionOptions.Retry>
+                    <InArgument x:TypeArguments="x:Boolean" />
+                  </uix:VerifyExecutionOptions.Retry>
+                  <uix:VerifyExecutionOptions.Timeout>
+                    <InArgument x:TypeArguments="x:Double" />
+                  </uix:VerifyExecutionOptions.Timeout>
+                </uix:VerifyExecutionOptions>
+              </uix:NClick.VerifyOptions>
+            </uix:NClick>
+            <ui:LogMessage DisplayName="Log Message - &quot;Clicked Submit&quot;" sap:VirtualizedContainerService.HintSize="1488,176" sap2010:WorkflowViewState.IdRef="LogMessage_33" Level="Warn" Message="[&quot;Clicked Submit&quot;]" />
+            <uix:NCheckState DisplayName="Check App State - Successful login" sap:VirtualizedContainerService.HintSize="1488,603.2" sap2010:WorkflowViewState.IdRef="NCheckState_10" Timeout="10" Version="V4">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="449.6,230.4" sap2010:WorkflowViewState.IdRef="Sequence_45">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;Successfully logged in!&quot;" sap:VirtualizedContainerService.HintSize="416,168.8" sap2010:WorkflowViewState.IdRef="LogMessage_47" Level="Info" Message="[&quot;Successfully logged in!&quot;]" />
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="449.6,352.8" sap2010:WorkflowViewState.IdRef="Sequence_46">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;Login unsucessful!&quot;" sap:VirtualizedContainerService.HintSize="416,176" sap2010:WorkflowViewState.IdRef="LogMessage_48" Level="Error" Message="[&quot;Login unsucessful!&quot;]" />
+                  <Throw DisplayName="Throw - New SystemException(&quot;Login unsucessful!&quot;)" Exception="[New Exception(&quot;Login unsucessful!&quot;)]" sap:VirtualizedContainerService.HintSize="416,115.2" sap2010:WorkflowViewState.IdRef="Throw_10" />
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable DesignTimeRectangle="0, 0, 0, 0" FullSelectorArgument="&lt;webctrl id='dijit_form_Select_*' tag='TABLE' /&gt;&lt;webctrl aaname='TS2' tag='SPAN' visibleinnertext='TS2' /&gt;" Guid="6cc55e85-598a-49cb-b2c6-fb6262f2fd56" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Visibility="Visible" />
+              </uix:NCheckState.Target>
+            </uix:NCheckState>
+            <uix:NCheckState DisplayName="Check App State 'TS2'" EnableIfNotExists="False" sap:VirtualizedContainerService.HintSize="1488,1513.6" sap2010:WorkflowViewState.IdRef="NCheckState_6" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="483.2,1270.4" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message - &quot;Login Successful.&quot;" sap:VirtualizedContainerService.HintSize="449.6,176" sap2010:WorkflowViewState.IdRef="LogMessage_34" Level="Info" Message="[&quot;Login Successful.&quot;]" />
+                  <If Condition="[ChangeTo200]" DisplayName="If - ChangeTo200" sap:VirtualizedContainerService.HintSize="449.6,1032.8" sap2010:WorkflowViewState.IdRef="If_6">
+                    <If.Then>
+                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,642.4" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message - &quot;Changed the environment to 200&quot;" sap:VirtualizedContainerService.HintSize="382.4,176" sap2010:WorkflowViewState.IdRef="LogMessage_41" Level="Info" Message="[&quot;Changed the environment to 200&quot;]" />
+                        <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'TS2Χ ▼'" sap:VirtualizedContainerService.HintSize="382.4,225.6" sap2010:WorkflowViewState.IdRef="NClick_15" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+                          <uix:NClick.Target>
+                            <uix:TargetAnchorable BrowserURL="inpwr.dexterchaney.com/pages/index.jsp" DesignTimeRectangle="1122, 183, 72, 25" DesignTimeScaleFactor="1.25" FullSelectorArgument="&lt;webctrl id='dijit_form_Select_*' tag='TABLE' innertext='TS2' /&gt;" Guid="8fdd1d13-3394-4b51-83dc-3eac8755439e" ImageBase64="" InformativeScreenshot="1e6ec9dae1d6443c7290f599d641ad8c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Viewpoint Spectrum' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+                          </uix:NClick.Target>
+                          <uix:NClick.VerifyOptions>
+                            <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                              <uix:VerifyExecutionOptions.Retry>
+                                <InArgument x:TypeArguments="x:Boolean" />
+                              </uix:VerifyExecutionOptions.Retry>
+                              <uix:VerifyExecutionOptions.Timeout>
+                                <InArgument x:TypeArguments="x:Double" />
+                              </uix:VerifyExecutionOptions.Timeout>
+                            </uix:VerifyExecutionOptions>
+                          </uix:NClick.VerifyOptions>
+                        </uix:NClick>
+                        <uix:NSelectItem DisplayName="Select Item 'TS2Χ ▼'" sap:VirtualizedContainerService.HintSize="382.4,180.8" sap2010:WorkflowViewState.IdRef="NSelectItem_4" Item="200" ScopeIdentifier="c93bc921-df5a-42e2-a88a-3d60f1c2f35f" Version="V4">
+                          <uix:NSelectItem.Items>
+                            <scg:List x:TypeArguments="x:String" Capacity="1">
+                              <x:String>TS2</x:String>
+                            </scg:List>
+                          </uix:NSelectItem.Items>
+                          <uix:NSelectItem.Target>
+                            <uix:TargetAnchorable BrowserURL="inpwr.dexterchaney.com/pages/index.jsp" DesignTimeRectangle="1122, 183, 72, 25" DesignTimeScaleFactor="1.25" FullSelectorArgument="&lt;webctrl id='dijit_form_Select_*' tag='TABLE' innertext='TS2' /&gt;" Guid="dbb1e4f6-aa7a-440a-9e96-325cc64a9c5a" ImageBase64="" InformativeScreenshot="1dac24f4fcd0b8e654b548fde9c48f96.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Viewpoint Spectrum' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+                          </uix:NSelectItem.Target>
+                        </uix:NSelectItem>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,227.2" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message - &quot;The environment is in TS2&quot;" sap:VirtualizedContainerService.HintSize="382.4,167.2" sap2010:WorkflowViewState.IdRef="LogMessage_42" Level="Info" Message="[&quot;The environment is in TS2&quot;]" />
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="449.6,91.2" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="inpwr.dexterchaney.com/pages/index.jsp" CVScreenId="35bc0be9-15be-48d6-9077-7eaadb0711cb" DesignTimeRectangle="1138, 184, 27, 22" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl id='dijit_form_Select_*' tag='TABLE' /&gt;&lt;webctrl aaname='TS2' tag='SPAN' visibleinnertext='TS2' /&gt;" Guid="21a0fa47-62c4-4e92-a37a-8d9556e80626" InformativeScreenshot="df4bcf5b5ab5b961421650366a897134.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Viewpoint Spectrum' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NCheckState.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NCheckState>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="-9, -9, 1938, 1038" BrowserType="Chrome" ContentHash="-bu_O5KVSE2JHVBfpBnp1w" IconBase64="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" InformativeScreenshot="44b3692242a239075ef4fdad8710e653.jpg" Reference="muQbkXCU5EOlVkQ3ts98bA/v5N9C2LRsU-4j0YaXk6CUA" Selector="&lt;html app='chrome.exe' title='Viewpoint Spectrum' /&gt;" Title="Viewpoint Spectrum" Url="[SpectrumURL]" />
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+    <ui:LogMessage DisplayName="Log Message - &quot;Spectrum Login:  Ended&quot;" sap:VirtualizedContainerService.HintSize="1555.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Spectrum Login:  Ended&quot;]" />
+  </Sequence>
+</Activity>

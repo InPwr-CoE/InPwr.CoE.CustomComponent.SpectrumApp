@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="m7JSR0UE4kW0nEXEmaPgvA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="us.id.trimble.com/ui/sign_in.html" DesignTimeRectangle="1379, 338, 500, 73" DesignTimeScaleFactor="1.25" ElementType="Text" FullSelectorArgument="&lt;webctrl id='error_max_limit_reached' parentid='enter_password' tag='DIV' aaname='You have reached the maximum number of attempts. Please try again later.' innertext='You have reached the maximum number of attempts. Please try again later.' /&gt;" Guid="7a5dfb0f-c4ad-4303-a17f-aaa4d363b1d0" ImageBase64="" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Trimble Identity' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="838c976a450615c0b7a44e90c4b2d305.png" xmlns="">0AqbZboLmpUSI13tC33inwA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">GetText</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

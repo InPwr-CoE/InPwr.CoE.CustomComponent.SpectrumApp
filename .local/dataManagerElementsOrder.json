@@ -1,0 +1,102 @@
+{
+  "Workflows": [
+    {
+      "Path": null,
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": null,
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Spectrum/Spec_Login.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": [
+        "O365MailAccount",
+        "O365ApplicationId",
+        "O365ApplicationSecret",
+        "O365Tenant",
+        "SearchQuery",
+        "EmailCount",
+        "EmailFolder",
+        "RetryInterval",
+        "SpectrumURL",
+        "SpectrumLoginMail",
+        "SpectrumLoginPwd",
+        "ChangeTo200",
+        "out_spectrumBrowser"
+      ],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Mail/GetMail.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": [
+        "out_list_MailMessage",
+        "in_MailFolder",
+        "in_MailLimit",
+        "in_RetryInterval",
+        "in_subjectQuery"
+      ],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "TestCases/TC_01_Spec_Login.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "SearchQuery&Sequence_1",
+        "out_spectrumBrowser&Sequence_1",
+        "O365MailAccount&Sequence_1",
+        "O365ApplicationId&Sequence_1",
+        "O365ApplicationSecret&Sequence_1",
+        "O365Tenant&Sequence_1",
+        "EmailCount&Sequence_1",
+        "EmailFolder&Sequence_1",
+        "RetryInterval&Sequence_1",
+        "SpectrumURL&Sequence_1",
+        "SpectrumLoginMail&Sequence_1",
+        "SpectrumLoginPwd&Sequence_1",
+        "ChangeTo200&Sequence_1"
+      ],
+      "ArgumentsSectionElementsOrder": [],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Spectrum/Spec_Logout.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": [
+        "in_spectrumBrowser"
+      ],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "TestCases/TC_02_Spec_Logout.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "SearchQuery&Sequence_1",
+        "out_spectrumBrowser&Sequence_1",
+        "O365MailAccount&Sequence_1",
+        "O365ApplicationId&Sequence_1",
+        "O365ApplicationSecret&Sequence_1",
+        "O365Tenant&Sequence_1",
+        "EmailCount&Sequence_1",
+        "EmailFolder&Sequence_1",
+        "RetryInterval&Sequence_1",
+        "SpectrumURL&Sequence_1",
+        "SpectrumLoginMail&Sequence_1",
+        "SpectrumLoginPwd&Sequence_1",
+        "ChangeTo200&Sequence_1"
+      ],
+      "ArgumentsSectionElementsOrder": [],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "DisplayName": "Spectrum Logout",
+  "Tooltip": "Logout Component for Spectrum Web Application",
+  "HelpLink": null,
+  "Color": "#0043FF",
+  "OriginalIconFileName": null,
+  "Arguments": [
+    {
+      "Name": "in_spectrumBrowser",
+      "DisplayName": "in_spectrumBrowser",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    }
+  ]
+}
