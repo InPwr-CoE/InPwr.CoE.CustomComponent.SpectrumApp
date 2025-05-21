@@ -1,0 +1,1 @@
+# InPwr.CoE.CustomComponent.SpectrumApp
